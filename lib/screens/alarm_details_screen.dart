@@ -1,44 +1,126 @@
-
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import '../constants.dart';
+import 'package:intl/intl.dart';
 
 class AlarmDetailScreen extends StatelessWidget {
-
   static const String id = 'alarm_detail_screen';
-
-  final textController  = TextEditingController();
+  final textController = TextEditingController();
+  final format = DateFormat("hh:mm a");
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(20),
-          topLeft: Radius.circular(20),
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
         ),
-      ),
-      child: Column(
-        children: <Widget>[
-          //TODO add Map widge,
-          Row(
-            //TODO: departure address field
-          ),
-          Row(
-            //TODO: arrival address field
-          ),
-          //TODO: add space here
-          Row(
-            children: <Widget>[
-              Column(
-                //TODO: Arrival time picker, buffer time picker, alarm name field
-              ),
-              Column(
-                //TODO: estimate commute time fields, save button
-              ),
-            ],
-          ),
-        ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            //TODO add Map widget
+            Row(
+              children: <Widget>[
+                Text(
+                  'Depart:',
+                ),
+                SizedBox(
+                  height: 35.0,
+                  width: 300,
+                  child: TextField(
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {},
+                      decoration: kTextFieldDecoration),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: <Widget>[
+                Text(
+                  'Arrive:',
+                ),
+                SizedBox(
+                  width: 6,
+                ),
+                SizedBox(
+                  height: 35.0,
+                  width: 300,
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {},
+                    decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Enter Ending Address'),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            Row(
+              children: <Widget>[
+                Column(
+                  //TODO: Arrival time picker, buffer time picker, alarm name field
+                  children: <Widget>[
+                    Text('Desired Arrival Time'),
+                    SizedBox(
+                      height: 35,
+                      width: 120,
+                      child: DateTimeField(
+                        format: format,
+                        onShowPicker: (context, currentValue) async {
+                          final time = await DatePicker.showTime12hPicker(
+                              context,
+                              showTitleActions: true, onChanged: (date) {
+                            print('change $date in time zone ' +
+                                date.timeZoneOffset.inHours.toString());
+                          },
+                              onConfirm: (date) {
+                            print('confirm $date');
+                          },
+                              currentTime: DateTime.now());
+                          return time;
+                        },
+                      ),
+                    ),
+                    // FlatButton(
+                    //   color: Colors.grey,
+                    //   shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(10.0),
+                    //       side: BorderSide(color: Colors.grey[850])),
+                    //   onPressed: () {
+                    //     DatePicker.showTime12hPicker(context,
+                    //         showTitleActions: true, onChanged: (date) {
+                    //       print('change $date in time zone ' +
+                    //           date.timeZoneOffset.inHours.toString());
+                    //     }, onConfirm: (date) {
+                    //       print('confirm $date');
+                    //     }, currentTime: DateTime.now());
+                    //   },
+                    //   child: Text(
+                    //     'Select Arrival Time',
+                    //     style: TextStyle(color: Colors.white),
+                    //   ),
+                    // )
+                  ],
+                ),
+                Column(
+                    //TODO: estimate commute time fields, save button
+                    ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
