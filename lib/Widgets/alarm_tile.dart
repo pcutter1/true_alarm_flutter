@@ -15,10 +15,27 @@ class AlarmTile extends StatelessWidget {
         children: <Widget>[
           Column(
             children: <Widget>[
-              Text('Alarm Name'),
-              Text('8:00')
+              Text(
+                alarmName,
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              ),
+              Text(
+                '8:00',
+                style: TextStyle(
+                    color: Colors.white
+                ),
+              )
             ],
-          )
+          ),
+          Column(
+            //TODO: add edit and delete icons
+          ),
+          Column(
+            //TODO: add arrival time fields
+          ),
+          //TODO: add toggleSet button widget
         ],
       ),
     );

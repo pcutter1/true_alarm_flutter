@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:true_alarm/Widgets/alarm_list.dart';
-import 'package:true_alarm/Widgets/alarm_tile.dart';
 
 class AlarmListScreen extends StatelessWidget {
+
+  static const String id = 'alarm_list_screen';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,12 +20,12 @@ class AlarmListScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
-            color: Colors.white
+            color: Colors.white,
           ),
         ),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        padding: EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           color: Colors.black
         ),
