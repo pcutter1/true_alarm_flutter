@@ -1,5 +1,6 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../constants.dart';
 import 'package:intl/intl.dart';
@@ -68,9 +69,9 @@ class AlarmDetailScreen extends StatelessWidget {
               height: 40,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
-                  //TODO: Arrival time picker, buffer time picker, alarm name field
                   children: <Widget>[
                     Text('Desired Arrival Time'),
                     SizedBox(
@@ -93,28 +94,45 @@ class AlarmDetailScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    // FlatButton(
-                    //   color: Colors.grey,
-                    //   shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(10.0),
-                    //       side: BorderSide(color: Colors.grey[850])),
-                    //   onPressed: () {
-                    //     DatePicker.showTime12hPicker(context,
-                    //         showTitleActions: true, onChanged: (date) {
-                    //       print('change $date in time zone ' +
-                    //           date.timeZoneOffset.inHours.toString());
-                    //     }, onConfirm: (date) {
-                    //       print('confirm $date');
-                    //     }, currentTime: DateTime.now());
-                    //   },
-                    //   child: Text(
-                    //     'Select Arrival Time',
-                    //     style: TextStyle(color: Colors.white),
-                    //   ),
-                    // )
+                    SizedBox(height: 30,),
+                    Text('Buffer Time (min)'),
+                    SizedBox(
+                      height: 35,
+                      width: 50,
+                      child: TextField(
+                        textAlign: TextAlign.start,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    SizedBox(
+                      height: 35,
+                      width: 100,
+                      child: TextField(
+                        textAlign: TextAlign.start,
+                        decoration: InputDecoration(
+                          hintText: 'Alarm Name'
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Column(
+                  children:<Widget>[
+                    Text('Estimated Commute Time'),
+                    SizedBox(height: 10,),
+                    Text('43 min'),
+                    SizedBox(height: 115,),
+                    FloatingActionButton.extended(
+                        onPressed: () {},
+                      label: Text('SAVE'),
+                    )
+                  ],
                     //TODO: estimate commute time fields, save button
                     ),
               ],
