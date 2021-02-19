@@ -1,13 +1,13 @@
 class Alarm {
   final String name;
   final String startPoint;
-  final String endpoint;
+  final String endPoint;
   final int bufferMinutes;
-  final int arrivalTime;
+  final DateTime arrivalTime;
   bool isSet;
 
 
-  Alarm({this.name, this.startPoint, this.endpoint, this.bufferMinutes, this.arrivalTime, this.isSet = true});
+  Alarm({this.name, this.startPoint, this.endPoint, this.bufferMinutes, this.arrivalTime, this.isSet = true});
 
   void toggleSet() {
     isSet = !isSet;

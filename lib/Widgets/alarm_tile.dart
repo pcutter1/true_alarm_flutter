@@ -4,9 +4,10 @@ class AlarmTile extends StatelessWidget {
 
   final bool isSet;
   final String alarmName;
+  final DateTime arrivalTime;
   final Function onOff;
 
-  AlarmTile({this.alarmName, this.isSet, this.onOff});
+  AlarmTile({this.alarmName, this.arrivalTime, this.isSet, this.onOff});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class AlarmTile extends StatelessWidget {
                 ),
               ),
               Text(
-                '8:00',
+                arrivalTime.toString(),
                 style: TextStyle(
                     color: Colors.white
                 ),

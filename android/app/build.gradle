@@ -6,6 +6,12 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+def getProperty(String propertyFile, String propertyName) {
+    Properties properties = new Properties();
+    properties.load(new FileInputStream(propertyFile));
+    return String.format("\"%s\"", properties.getProperty(propertyName));
+}
+
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
@@ -32,12 +38,15 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "paulcutter.com.true_alarm"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        resValue "string", "maps_api_key",
+                getProperty("/Users/pqc/Desktop/bootcamp/services/maps.properties", "API_KEY")
+
     }
 
     buildTypes {

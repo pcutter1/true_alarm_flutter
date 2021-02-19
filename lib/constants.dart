@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 const kTextFieldDecoration = InputDecoration(
-  hintText: 'Enter Starting Address',
   contentPadding:
   EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(

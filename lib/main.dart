@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:true_alarm/Models/alarm_data.dart';
 import 'package:true_alarm/screens/alarm_details_screen.dart';
 import 'package:true_alarm/screens/alarm_list_screen.dart';
+import 'package:true_alarm/screens/loading_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         routes: {
             AlarmListScreen.id : (context) => AlarmListScreen(),
           AlarmDetailScreen.id : (context) => AlarmDetailScreen(),
+          LoadingScreen.id : (context) => LoadingScreen(),
           // SettingsScreen.id : (context) => SettingsScreen(),
         },
       ),

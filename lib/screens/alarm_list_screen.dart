@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:true_alarm/Widgets/alarm_list.dart';
 import 'package:true_alarm/screens/alarm_details_screen.dart';
+import 'package:true_alarm/screens/loading_screen.dart';
 
 class AlarmListScreen extends StatelessWidget {
 
@@ -13,7 +14,7 @@ class AlarmListScreen extends StatelessWidget {
         backgroundColor: Colors.grey,
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, AlarmDetailScreen.id);
+          Navigator.pushNamed(context, LoadingScreen.id);
         },
       ),
       appBar: AppBar(

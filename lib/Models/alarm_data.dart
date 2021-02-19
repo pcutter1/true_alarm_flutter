@@ -12,8 +12,8 @@ class AlarmData extends ChangeNotifier {
     return UnmodifiableListView(_alarms);
   }
 
-  void addAlarm(String name) {
-    final alarm = Alarm(name: name);
+  void addAlarm(String name, int buffer, DateTime arrivalTime) {
+    final alarm = Alarm(name: name, bufferMinutes: buffer, arrivalTime: arrivalTime);
     _alarms.add(alarm);
     notifyListeners();
   }
