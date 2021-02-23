@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:true_alarm/Widgets/alarm_list.dart';
-import 'package:true_alarm/screens/alarm_details_screen.dart';
 import 'package:true_alarm/screens/loading_screen.dart';
 
 class AlarmListScreen extends StatelessWidget {

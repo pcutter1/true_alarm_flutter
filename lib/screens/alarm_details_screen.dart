@@ -2,20 +2,20 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:true_alarm/Models/alarm.dart';
 import 'package:true_alarm/Models/alarm_data.dart';
-import 'package:true_alarm/Models/location.dart';
 import 'package:true_alarm/screens/alarm_list_screen.dart';
 import '../constants.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AlarmDetailScreen extends StatefulWidget {
 
-  AlarmDetailScreen({this.locationCoordinates});
+  AlarmDetailScreen({this.locationCoordinates, this.alarm});
 
 final LatLng locationCoordinates;
+final Alarm alarm;
 
   static const String id = 'alarm_detail_screen';
 
@@ -38,22 +38,24 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    updateUI(widget.locationCoordinates);
+    updateUI(widget.alarm);
   }
 
-  void updateUI(LatLng coordinates) {
+  void updateUI(Alarm alarm) {
     setState(() {
-      if (coordinates == null) {
+      if (alarm == null) {
         commuteTime = 0;
-        alarmName = '???';
+        alarmName = 'Alarm Name';
         arrivalTime = DateTime.now();
-        position = LatLng(35.0844, 106.6504);
+        position = widget.locationCoordinates;
+        bufferMinutes = 0;
         return;
       }
       commuteTime = 0;
-      alarmName = '';
-      arrivalTime = DateTime.now();
-      position = coordinates;
+      alarmName = widget.alarm.name;
+      arrivalTime = widget.alarm.arrivalTime;
+      position = widget.locationCoordinates;
+      bufferMinutes = widget.alarm.bufferMinutes;
     });
   }
 
@@ -169,11 +171,17 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
                         height: 35,
                         width: 50,
                         child: TextField(
+                          decoration: InputDecoration(
+                            hintText: bufferMinutes.toString(),
+                          ),
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.digitsOnly
                           ],
+                          onChanged: (value) {
+                            bufferMinutes = int.parse(value);
+                          },
                         ),
                       ),
                       SizedBox(
@@ -183,8 +191,11 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
                         height: 35,
                         width: 100,
                         child: TextField(
-                          textAlign: TextAlign.start,
-                          decoration: InputDecoration(hintText: 'Alarm Name'),
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(hintText: alarmName),
+                          onChanged: (value) {
+                            alarmName = value;
+                          },
                         ),
                       ),
                     ],
@@ -201,7 +212,7 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
                       ),
                       FloatingActionButton.extended(
                         onPressed: () {
-                          AlarmData().addAlarm(alarmName, bufferMinutes, arrivalTime);
+                          Provider.of<AlarmData>(context, listen: false).addAlarm(alarmName, bufferMinutes, arrivalTime);
                           Navigator.popUntil(context, ModalRoute.withName(AlarmListScreen.id));
                         },
                         label: Text('SAVE'),

@@ -9,15 +9,10 @@ class AlarmList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AlarmData>(
       builder: (context, alarmData, child) {
-        return ListView.builder(itemBuilder: (context, index) {
+        return ListView.builder(
+          itemBuilder: (context, index) {
           final alarm = alarmData.alarms[index];
-          return AlarmTile(
-            alarmName: alarm.name,
-            isSet: alarm.isSet,
-            onOff: (onOffState) {
-              alarmData.toggleSet(alarm);
-            },
-          );
+          return AlarmTile(alarm: alarm,);
         },
           itemCount: alarmData.alarmCount,
         );

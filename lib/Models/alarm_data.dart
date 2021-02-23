@@ -5,11 +5,15 @@ import 'package:true_alarm/Models/alarm.dart';
 class AlarmData extends ChangeNotifier {
 
   List<Alarm> _alarms = [
-    Alarm(name: 'Work')
+    Alarm(name: 'Work', arrivalTime: DateTime(2017, 9, 7, 17, 30),)
   ];
 
   UnmodifiableListView<Alarm> get alarms {
     return UnmodifiableListView(_alarms);
+  }
+
+  Alarm getCurrentAlarm (int index) {
+    return _alarms[index];
   }
 
   void addAlarm(String name, int buffer, DateTime arrivalTime) {
